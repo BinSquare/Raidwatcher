@@ -2,9 +2,13 @@
 
 RaidWatcher is a crowd-sourced map (ios/android) to track and map reported ICE/police activity.
 
-<img src="assets/images/app-about.png" alt="App Screenshot 1" title="App Screenshot 1" width="300">
-<img src="assets/images/app-report.png" alt="App Screenshot 2" title="App Screenshot 2" width="300">
-<img src="assets/images/app-map.png" alt="App Screenshot 3" title="App Screenshot 3" width="300">
+<table>
+  <tr>
+    <td><img src="assets/images/app-about.png" alt="App Screenshot 1" title="App Screenshot 1" width="300"></td>
+    <td><img src="assets/images/app-report.png" alt="App Screenshot 2" title="App Screenshot 2" width="300"></td>
+    <td><img src="assets/images/app-map.png" alt="App Screenshot 3" title="App Screenshot 3" width="300"></td>
+  </tr>
+</table>
 
 ## Privacy & Security
 
