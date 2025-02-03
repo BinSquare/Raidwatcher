@@ -2,6 +2,18 @@
 
 RaidWatcher is a crowd-sourced map to track and map reported ICE/police activity. 
 
+## What problem does this solve?
+
+Victims of ambushes are 
+
+## Why does this app exist?
+
+
+1) Give a heads up 
+2) 
+
+Treating people with compassion is not a political stance.
+
 ## Features
 - Interactive map interface for viewing reported activities
 - List view of recent reports
