@@ -1,21 +1,18 @@
 # RaidWatcher 🗺️
 
-RaidWatcher is a crowd-sourced map to track and map reported ICE/police activity. 
+RaidWatcher is a crowd-sourced map (ios/android) to track and map reported ICE/police activity.
 
-## What problem does this solve?
+![Screenshot 1](../assets/images/app-about.png "App Screenshot 1")
+![Screenshot 2](../assets/images/app-report.png "App Screenshot 2")
+![Screenshot 3](../assets/images/app-map.png "App Screenshot 3")
 
-Victims of ambushes are 
+## Privacy & Security
 
-## Why does this app exist?
+RaidWatcher is designed with community safety in mind. We do not store any identity or location data. There are no user accounts.
 
+## Key points
 
-1) Give a heads up 
-2) 
-
-Treating people with compassion is not a political stance.
-
-## Features
-- Interactive map interface for viewing reported activities
+- Has map interface for viewing reported activities
 - List view of recent reports
 - Community-driven reporting system
 - Cross-platform support (iOS & Android)
@@ -23,6 +20,7 @@ Treating people with compassion is not a political stance.
 ## Setup & Development
 
 1. Install dependencies
+
    ```bash
    npm install
    ```
@@ -34,23 +32,12 @@ Treating people with compassion is not a political stance.
 
 ## Running the App
 
-You can run RaidWatcher on:
-- iOS Simulator
-- Android Emulator
-- Physical device using Expo Go
-- Development build on your device
-
-## Technology Stack
-- React Native with Expo
-- Expo Router for navigation
-- Native platform integrations
-- Material Icons & SF Symbols for UI elements
+npm run start
 
 ## Contributing
-We welcome contributions that help make RaidWatcher more effective for our communities. Please follow our contribution guidelines when submitting changes.
 
-## Privacy & Security
-RaidWatcher is designed with community safety in mind. We do not store any identity or location data. There are no user accounts.
+Contributions are welcomed. Contribution guidelines in the works.
 
 ## License
+
 MIT License
