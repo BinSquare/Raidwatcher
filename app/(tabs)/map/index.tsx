@@ -16,7 +16,6 @@ import RaidMarkers from '@/components/RaidMarkers';
 import { ThemedText } from '@/components/ThemedText';
 import { INITIAL_REGION } from '@/constants/Strings';
 
-
 export default function TabMap() {
   const [markers, setMarkers] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -37,14 +36,29 @@ export default function TabMap() {
     })
   ).current;
 
-  useEffect(() => {
-    fetchMarkersFromSupabase();
-  }, []);
+  // Compute the current visible bounds based on region.
+  const getRegionBounds = (reg) => {
+    const latDelta = reg.latitudeDelta || 0.0922;
+    const lonDelta = reg.longitudeDelta || 0.0421;
+    const latMin = reg.latitude - latDelta / 2;
+    const latMax = reg.latitude + latDelta / 2;
+    const lonMin = reg.longitude - lonDelta / 2;
+    const lonMax = reg.longitude + lonDelta / 2;
+    return { latMin, latMax, lonMin, lonMax };
+  };
 
+  // Fetch markers only within the current region bounds.
   const fetchMarkersFromSupabase = async () => {
-    console.log("Fetching markers...");
+    const { latMin, latMax, lonMin, lonMax } = getRegionBounds(region);
+    console.log("Fetching markers within bounds:", { latMin, latMax, lonMin, lonMax });
     try {
-      const { data, error } = await supabase.from("raid_reports").select("*");
+      const { data, error } = await supabase
+        .from("raid_reports")
+        .select("*")
+        .gte("latitude", latMin)
+        .lte("latitude", latMax)
+        .gte("longitude", lonMin)
+        .lte("longitude", lonMax);
       if (error) {
         console.error(error);
         Alert.alert("Error", "Could not fetch raid reports.");
@@ -71,6 +85,30 @@ export default function TabMap() {
       console.error(error);
     }
   };
+
+  // Fetch markers whenever the region changes.
+  useEffect(() => {
+    fetchMarkersFromSupabase();
+  }, [region]);
+
+  // Set up a realtime subscription using the new Supabase v2 API.
+  useEffect(() => {
+    const channel = supabase
+      .channel('public:raid_reports')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'raid_reports' },
+        (payload) => {
+          console.log("Realtime update received:", payload);
+          fetchMarkersFromSupabase();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, []);
 
   const handleAddPress = () => {
     setPreviousRegion(region);
@@ -140,6 +178,7 @@ export default function TabMap() {
         console.error(error);
       } else {
         Alert.alert("Success", "ICE raid reported.");
+        // Optionally update markers locally with returned data.
         setMarkers(data.map((item) => ({
           id: item.id,
           title: item.activity,
@@ -172,12 +211,11 @@ export default function TabMap() {
         region={region}
         onRegionChange={(updatedRegion) => {
           if (isSelectingLocation) {
-            // Smoothly update the animated marker without updating state
+            // Smoothly update the animated marker without updating state.
             animatedMarker.setValue({
               latitude: updatedRegion.latitude,
               longitude: updatedRegion.longitude,
             });
-            // Do not update the region state here to avoid re-renders
           }
         }}
         onRegionChangeComplete={(updatedRegion) => {
