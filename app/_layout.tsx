@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import 'react-native-get-random-values';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -19,6 +20,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
+      console.log("✅ Fonts loaded, hiding splash screen");
       SplashScreen.hideAsync();
     }
   }, [loaded]);

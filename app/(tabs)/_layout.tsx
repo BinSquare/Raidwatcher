@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { MaterialIcons} from 'react-native-vector-icons';
+import { MaterialIcons } from 'react-native-vector-icons';
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
@@ -32,13 +32,15 @@ export default function TabLayout() {
         name="map/index"
         options={{
           title: 'Map',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
+          lazy: false, // ✅ Keeps the tab in memory so it doesn't reset
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="map" color={color} />,
         }}
       />
       <Tabs.Screen
         name="list/index"
         options={{
           title: 'List',
+          lazy: false, // ✅ Keeps the tab in memory so it doesn't reset
           tabBarIcon: ({ color }) => <MaterialIcons name="format-list-bulleted" size={28} color={color} />,
 
         }}
@@ -47,6 +49,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'About',
+          lazy: false, // ✅ Keeps the tab in memory so it doesn't reset
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
